@@ -42,7 +42,7 @@ const MoneyTransfer = () => {
         throw new Error("Receiver not found.");
       }
 
-      const response = await axios.post("/transfer", {
+      const response = await axios.post("https://bankingwebsite-1.onrender.com/transfer", {
         sender: senderId,
         receiver: receiverId,
         amount,
