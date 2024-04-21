@@ -16,7 +16,7 @@ const MoneyTransfer = () => {
     // Fetch all customers except the sender
     const fetchCustomers = async () => {
       try {
-        const response = await axios.get("/customers");
+        const response = await axios.get("https://bankingwebsite-1.onrender.com/customers");
         setCustomers(response.data);
       } catch (error) {
         console.error("Error fetching customers:", error);

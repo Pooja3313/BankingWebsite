@@ -8,7 +8,7 @@ const AllCustomer = () => {
 
   useEffect(() => {
     axios
-      .get("/customers")
+      .get("https://bankingwebsite-1.onrender.com/customers")
       .then((response) => {
         setCustomers(response.data);
       })

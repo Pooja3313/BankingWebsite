@@ -1,12 +1,21 @@
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const express = require('express');
+const cors = require("cors");
 const app = express();
 
 dotenv.config({ path: './config.env'});
 require('./db/conn');
 const Customer = require('./model/CustomerSchema');
 const Transfer = require('./model/TransferSchema');
+
+const corsOptions = {
+    origin: "https://banking-website-tau.vercel.app",
+    methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
+    credentials: true,
+  };
+  
+  app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use(require('./router/auth'));
