@@ -10,7 +10,7 @@ const Customer = require('./model/CustomerSchema');
 const Transfer = require('./model/TransferSchema');
 
 const corsOptions = {
-    origin: "https://banking-website-tau.vercel.app",
+    origin: "http://localhost:3000",
     methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
     credentials: true,
   };
