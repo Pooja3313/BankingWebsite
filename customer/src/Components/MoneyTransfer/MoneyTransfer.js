@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,13 +11,16 @@ const MoneyTransfer = () => {
   const [customers, setCustomers] = useState([]);
   const { id } = useParams(); // Get the customer ID from URL parameters
   const Navigate = useNavigate();
-
   useEffect(() => {
     // Fetch all customers except the sender
     const fetchCustomers = async () => {
       try {
-        const response = await axios.get("https://bankingwebsite-1.onrender.com/customers");
-        setCustomers(response.data);
+        const response = await fetch("/customers");
+        if (!response.ok) {
+          throw new Error("Error fetching customers");
+        }
+        const data = await response.json();
+        setCustomers(data);
       } catch (error) {
         console.error("Error fetching customers:", error);
       }
@@ -42,27 +45,32 @@ const MoneyTransfer = () => {
         throw new Error("Receiver not found.");
       }
 
-      const response = await axios.post("https://bankingwebsite-1.onrender.com/transfer", {
-        sender: senderId,
-        receiver: receiverId,
-        amount,
-        
+      const response = await fetch("/transfer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          sender: senderId,
+          receiver: receiverId,
+          amount,
+        }),
       });
 
-      console.log("Transfer response:", response.data);
-
-      if (response.status === 200) {
-        toast.success("Money transferred successfully!");
-        Navigate("/AllCustomer");
-      } else {
+      if (!response.ok) {
         throw new Error("Failed to transfer money");
       }
+
+      console.log("Transfer response:", response.data);
+      toast.success("Money transferred successfully!");
+      Navigate("/AllCustomer");
     } catch (error) {
       console.error("Error transferring money:", error);
       toast.error("Error transferring money. Please try again later.");
     }
   };
 
+ 
   return (
     <div className="container-sm">
       <section

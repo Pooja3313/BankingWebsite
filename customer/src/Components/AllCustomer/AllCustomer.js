@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "./AllCustomer.css";
 import { NavLink } from "react-router-dom";
 
@@ -7,15 +6,21 @@ const AllCustomer = () => {
   const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://bankingwebsite-1.onrender.com/customers")
+    fetch("/customers")
       .then((response) => {
-        setCustomers(response.data);
+        if (!response.ok) {
+          throw new Error("Error fetching customers");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setCustomers(data);
       })
       .catch((error) => {
         console.error("Error fetching customers:", error);
+        
       });
-  }, []);
+  });
 
   return (
     <section
@@ -43,8 +48,7 @@ const AllCustomer = () => {
                       <tr key={customer._id}>
                         <td>{index + 1}</td>
                         <td>{customer.name}</td>
-                        {/* <td>{customer.email}</td>
-                  <td>{customer.currentBalance}</td> */}
+                       
                         <td>
                           {/* Link to individual customer details */}
                           <button
@@ -55,16 +59,6 @@ const AllCustomer = () => {
                           >
                             View
                           </button>
-                          {/* <button className="btn btn-secondary" type="button">
-                            View
-                          </button> */}
-
-                          {/* <NavLink
-                          
-                            to={`/CustomerView/${customer._id}`}
-                          >
-                            View
-                          </NavLink> */}
                         </td>
                       </tr>
                     ))}
@@ -95,16 +89,14 @@ const AllCustomer = () => {
                             </tr>
                           </tbody>
                         </table>
-                        {/* <h2>{customer.name}</h2>
-                        <p>Email: {customer.email}</p>
-                        <p>Current Balance: {customer.currentBalance}</p> */}
-                        <div className="d-flex">
+                      
+                      <div className="d-flex p">
                           <NavLink
                             to={`/MoneyTransfer/${customer._id}`}
                             type="button"
                             className="btn btn-primary"
                           >
-                            MoneyTransferd
+                            MoneyTransfer
                           </NavLink>
                         </div>
                       </div>
