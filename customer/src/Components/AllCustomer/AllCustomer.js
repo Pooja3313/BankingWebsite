@@ -6,7 +6,7 @@ const AllCustomer = () => {
   const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
-    fetch("/customers")
+    fetch("https://bankingwebsite-1.onrender.com/customers")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error fetching customers");
