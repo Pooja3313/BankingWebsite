@@ -5,24 +5,49 @@ import { NavLink } from "react-router-dom";
 const AllCustomer = () => {
   const [customers, setCustomers] = useState([]);
 
-  useEffect(() => {
-    fetch("https://bankingwebsite-1.onrender.com/customers")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error fetching customers");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setCustomers(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching customers:", error);
-        // Handle the error gracefully, such as setting an empty customers array
-        setCustomers([]);
-      });
-  }, []); // Empty dependency array ensures this effect runs only once on mount
+  // useEffect(() => {
+  //   fetch("https://bankingwebsite-1.onrender.com/customers")
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error("Error fetching customers");
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       setCustomers(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching customers:", error);
+  //       // Handle the error gracefully, such as setting an empty customers array
+  //       setCustomers([]);
+  //     });
+  // }, []); // Empty dependency array ensures this effect runs only once on mount
   
+  const getAllUsersData = async () => {
+    try {
+
+      const response = await fetch("https://bankingwebsite-1.onrender.com/customers", {
+        method: "GET",
+       
+      });
+
+      const responseData = await response.json();
+      console.log(`users : ${responseData}`);
+      // setUsers(responseData);
+      setCustomers(responseData);
+
+
+
+
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getAllUsersData();
+  }, [])
   return (
     <section
       className="section register min-vh-100 d-flex flex-column align-items-center  py-4"
