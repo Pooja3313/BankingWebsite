@@ -15,7 +15,7 @@ const MoneyTransfer = () => {
     // Fetch all customers except the sender
     const fetchCustomers = async () => {
       try {
-        const response = await fetch("https://bankingwebsite-1.onrender.com/customers");
+        const response = await fetch("/customers");
         if (!response.ok) {
           throw new Error("Error fetching customers");
         }
@@ -45,7 +45,7 @@ const MoneyTransfer = () => {
         throw new Error("Receiver not found.");
       }
 
-      const response = await fetch("https://bankingwebsite-1.onrender.com/transfer", {
+      const response = await fetch("/transfer", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
