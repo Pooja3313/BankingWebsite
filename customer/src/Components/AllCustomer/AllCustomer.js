@@ -18,10 +18,11 @@ const AllCustomer = () => {
       })
       .catch((error) => {
         console.error("Error fetching customers:", error);
-        
+        // Handle the error gracefully, such as setting an empty customers array
+        setCustomers([]);
       });
-  });
-
+  }, []); // Empty dependency array ensures this effect runs only once on mount
+  
   return (
     <section
       className="section register min-vh-100 d-flex flex-column align-items-center  py-4"

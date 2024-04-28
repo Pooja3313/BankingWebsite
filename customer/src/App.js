@@ -14,8 +14,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/AllCustomer" element={<AllCustomer />} />
-        {/* <Route path="/CustomerView/:id"  element={<CustomerView />}/> */}
-
         <Route path="/MoneyTransfer/:id"  element={<MoneyTransfer />}/>
       </Routes>
     
