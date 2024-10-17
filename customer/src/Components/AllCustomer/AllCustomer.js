@@ -26,7 +26,7 @@ const AllCustomer = () => {
   const getAllUsersData = async () => {
     try {
 
-      const response = await fetch("https://bankingwebsite-1.onrender.com/customers", {
+      const response = await fetch("/customers", {
         method: "GET",
        
       });
@@ -35,11 +35,6 @@ const AllCustomer = () => {
       console.log(`users : ${responseData}`);
       // setUsers(responseData);
       setCustomers(responseData);
-
-
-
-
-
     } catch (error) {
       console.log(error);
     }
