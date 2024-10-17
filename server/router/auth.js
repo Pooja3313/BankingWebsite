@@ -2,7 +2,7 @@ const express = require('express');
 const Customer = require('../model/CustomerSchema');
 const router = express.Router();
 const Transfer = require('../model/TransferSchema');
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // GET all customers
 router.get('/customers', async (req, res) => {
